@@ -2,21 +2,24 @@
 @author: Daniel Herrera-Vazquez
 """
 from dataclasses import dataclass
-from typing import Any, Optional, NewType
+from typing import Any, Optional, NewType, Generic, TypeVar
+from infix import or_infix
+
 
 DeNode: type = NewType('DeNode', object)
 DeList: type = NewType('DeList', object)
+T = TypeVar('T')
 
 
 @dataclass
-class DeNode:
+class DeNode(Generic[T]):
     Next: Optional[DeNode] = None
     Prev: Optional[DeNode] = None
-    Data: Optional[Any] = None
+    Data: Optional[T] = None
 
 
 @dataclass
-class DeList:
+class DeList(Generic[T]):
     Head: Optional[DeNode] = None
     Tail: Optional[DeNode] = None
     Size: int = 0
@@ -26,7 +29,8 @@ def is_empty(dell: DeList) -> bool:
     return dell.Size == 0
 
 
-def push_back(val: Any, dell: DeList) -> None:
+@or_infix
+def push_back(dell: DeList, val: T) -> None:
     temp: DeNode = DeNode(val)
     if is_empty(dell):
         # filling first node in empty list
@@ -40,7 +44,8 @@ def push_back(val: Any, dell: DeList) -> None:
     dell.Size += 1
 
 
-def push_front(val: Any, dell: DeList) -> None:
+@or_infix
+def push_front(dell: DeList, val: T) -> None:
     temp: DeNode = DeNode(val)
     if is_empty(dell):
         # filling first node in empty list
@@ -55,8 +60,8 @@ def push_front(val: Any, dell: DeList) -> None:
     dell.Size += 1 # size up
 
 
-def pop_back(dell: DeList) -> Any:
-    retval: Optional[Any] = None
+def pop_back(dell: DeList) -> T:
+    retval: Optional[T] = None
     if not is_empty(dell):
         retval = dell.Tail.Data
         # re-ref Tail to tail pos-1
@@ -68,16 +73,17 @@ def pop_back(dell: DeList) -> Any:
     return retval
 
 
-def pop_front(dell: DeList) -> Any:
+def pop_front(dell: DeList) -> T:
     return object()
 
 
 if __name__ == '__main__':
-    dll = DeList()
-    push_back(10, dll)
-    push_back(20, dll)
-    push_back(30, dll)
-    push_back(40, dll)
+    dll = DeList[int]()
+    # container on lval, data on rval
+    dll |push_back| 10
+    dll |push_back| 20
+    dll |push_back| 30
+    dll |push_back| 40
     print(dll)
     pop_back(dll)
     print(dll)

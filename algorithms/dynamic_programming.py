@@ -18,7 +18,7 @@ def lis(L: List[int]) -> List:
         IF b < c AND a < b THEN
             subSeqList = `[...a, b]`
         ELSE
-            subSeqList = `[...a, c]` 
+            subSeqList = `[...a, c]`
     ```
     '''
     alpha: List[int] = []  # final list

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 class MissingVertexException (Exception):
     """ MissingVertexException
     ==============================
-    Exception for when there is an edge or vertex that miss completes the 
+    Exception for when there is an edge or vertex that miss completes the
     -----------
     network in a graph.
     -----------
@@ -60,7 +60,7 @@ class Graph:
 
     def __iter__(self) -> Iterator[Vertex]:
         return iter(self.adjMap.keys())
-    
+
     def Size(self) -> bool:
         return self.__size
 
@@ -77,7 +77,7 @@ class Graph:
     ) -> None:
         """ add_vertex
         ==================
-        Adds brand new vertex to the graph, no edges are added to the graphs new 
+        Adds brand new vertex to the graph, no edges are added to the graphs new
         vertex unless defined.
         """
         if self.isEmpty():
@@ -100,7 +100,7 @@ class Graph:
         vertex_end: Vertex,
         weight: Optional[Any] = None
     ) -> None:
-        """ add_edge 
+        """ add_edge
         ================
         Addes an edge to the list of nodes and if the graph is bi-directional
         it adds the edge to both vertex's.
@@ -122,7 +122,7 @@ class Graph:
         ================
         runs surface level non changing algorithms on the graph to extract
         deep level information from paths.
-        ### Params: 
+        ### Params:
             * func (Callable): functional algorithm to differ size of object
             * *args (tuple): variadic parameter pack for the function use
             * **kwargs (dict): variadic parameter dictionary for function use \n
@@ -142,17 +142,17 @@ if __name__ == '__main__':
     graph.add_edge(Vertex('A'), Vertex('C'), 30)
     print("Actual data:")
     print(graph.adjMap)
-    
+
     '''
     {
         Vertex(Id='A', Value=None): {
-            Vertex(Id='A', Value=None): 10, 
-            Vertex(Id='B', Value=None): 20, 
+            Vertex(Id='A', Value=None): 10,
+            Vertex(Id='B', Value=None): 20,
             Vertex(Id='C', Value=None): 30
-        }, 
+        },
         Vertex(Id='B', Value=None): {
-            Vertex(Id='A', Value=None): 20	
-        }, 
+            Vertex(Id='A', Value=None): 20
+        },
         Vertex(Id='C', Value=None): {
             Vertex(Id='A', Value=None): 30
         }
